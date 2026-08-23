@@ -1,0 +1,59 @@
+x-runtipi:
+  schema_version: 2
+
+services:
+  gallery:
+    image: ghcr.io/open-noodle/gallery-server:v5.4.0
+    x-runtipi:
+      is_main: true
+      internal_port: 2283
+    environment:
+      DB_HOSTNAME: gallery-db
+      DB_USERNAME: tipi
+      DB_PASSWORD: ${GALLERY_DB_PASSWORD}
+      DB_DATABASE_NAME: gallery
+      REDIS_HOSTNAME: gallery-redis
+      IMMICH_MACHINE_LEARNING_URL: http://gallery-ml:3003
+      TZ: ${TZ}
+    volumes:
+      - ${RUNTIPI_MEDIA_DIR}/data/images/gallery:/data
+    depends_on:
+      gallery-db:
+        condition: service_healthy
+      gallery-redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  gallery-ml:
+    image: ghcr.io/open-noodle/gallery-ml:v5.4.0
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ${APP_DATA_DIR}/data/model-cache:/cache
+    restart: unless-stopped
+
+  gallery-redis:
+    image: docker.io/valkey/valkey:9
+    healthcheck:
+      test: redis-cli ping || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  gallery-db:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    environment:
+      POSTGRES_USER: tipi
+      POSTGRES_PASSWORD: ${GALLERY_DB_PASSWORD}
+      POSTGRES_DB: gallery
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+    volumes:
+      - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
+    shm_size: 128mb
+    healthcheck:
+      test: pg_isready -U tipi -d gallery || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped

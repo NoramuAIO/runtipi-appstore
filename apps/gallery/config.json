@@ -1,0 +1,28 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Noodle Gallery",
+  "id": "gallery",
+  "available": true,
+  "exposable": true,
+  "port": 8176,
+  "tipi_version": 1,
+  "version": "v5.4.0",
+  "categories": ["photography", "media"],
+  "short_desc": "Self-hosted photo and video management with shared spaces and smart search.",
+  "description": "Self-hosted photo and video management with shared spaces and smart search.",
+  "author": "Open Noodle",
+  "website": "https://opennoodle.de",
+  "source": "https://github.com/open-noodle/gallery",
+  "supported_architectures": ["amd64", "arm64"],
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Database password",
+      "min": 32,
+      "env_variable": "GALLERY_DB_PASSWORD"
+    }
+  ],
+  "created_at": 1755950000000,
+  "updated_at": 1755950000000,
+  "min_tipi_version": "4.5.0"
+}
