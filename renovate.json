@@ -33,6 +33,10 @@
       "enabled": false
     },
     {
+      "matchPackageNames": ["ghcr.io/immich-app/postgres"],
+      "enabled": false
+    },
+    {
       "matchPackageNames": ["nextcloud, lscr.io/linuxserver/grav"],
       "enabled": false
     }
