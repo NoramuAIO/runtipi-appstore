@@ -6,7 +6,7 @@
   "exposable": true,
   "port": 8176,
   "tipi_version": 1,
-  "version": "v5.4.0",
+  "version": "v5.6.0",
   "categories": ["photography", "media"],
   "short_desc": "Self-hosted photo and video management with shared spaces and smart search.",
   "description": "Self-hosted photo and video management with shared spaces and smart search.",
