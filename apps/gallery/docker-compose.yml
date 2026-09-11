@@ -1,9 +1,8 @@
 x-runtipi:
   schema_version: 2
-
 services:
   gallery:
-    image: ghcr.io/open-noodle/gallery-server:v5.6.0
+    image: ghcr.io/open-noodle/gallery-server:release   # veya v5
     x-runtipi:
       is_main: true
       internal_port: 2283
@@ -25,7 +24,7 @@ services:
     restart: unless-stopped
 
   gallery-ml:
-    image: ghcr.io/open-noodle/gallery-ml:v5.6.0
+    image: ghcr.io/open-noodle/gallery-ml:release       # veya v5
     environment:
       TZ: ${TZ}
     volumes:
