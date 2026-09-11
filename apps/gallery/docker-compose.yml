@@ -3,7 +3,7 @@ x-runtipi:
 
 services:
   gallery:
-    image: ghcr.io/open-noodle/gallery-server:v5.4.0
+    image: ghcr.io/open-noodle/gallery-server:v5.6.0
     x-runtipi:
       is_main: true
       internal_port: 2283
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
 
   gallery-ml:
-    image: ghcr.io/open-noodle/gallery-ml:v5.4.0
+    image: ghcr.io/open-noodle/gallery-ml:v5.6.0
     environment:
       TZ: ${TZ}
     volumes:
